@@ -1,0 +1,88 @@
+
+*Text component and images
+<Text onPress={handlePress}>Testing my new app!</Text>
+      <Text onPress={() => console.log("Text clicked")}>
+        Excited to get started
+      </Text>
+      {/* <Image source={require("./assets/icon.png")} /> */}
+      <TouchableHighlight onPress={() => console.log("Image tapped!")}>
+        <Image
+          // blurRadius={1}
+          // fadeDuration={1000}
+          // resizeMode={"contain"}
+          source={{
+            width: 200,
+            height: 300,
+            uri: "https://picsum.photos/200/300",
+          }}
+        />
+      </TouchableHighlight>
+      <TouchableNativeFeedback>
+        <View
+          style={{ width: 200, height: 70, backgroundColor: "dodgerblue" }}
+        />
+      </TouchableNativeFeedback>
+      <StatusBar style="auto" />
+
+* Button Alerts
+ Alert.alert("My alert", "Hello", [
+            { text: "Yes", onPress: () => console.log("User Clicked on Yes") },
+            { text: "No" },
+          ]).
+
+ <Button
+        color="black"
+        title="Click Me"
+        onPress={() =>
+          Alert.prompt("My Title", "Let me know", (text) => console.log(text))
+        }
+      />
+
+ <SafeAreaView style={styles.container}>
+      <View
+        style={{
+          backgroundColor: "blue",
+          width: "100%",
+          height: landscape ? "100%" : "30%",
+        }}
+      >
+        <Text
+          style={{
+            color: "white",
+          }}
+        >
+          Hello World
+        </Text>
+      </View>
+    </SafeAreaView>
+  );
+
+  Font : 
+
+        <Text
+        style={{
+          fontSize: 30,
+          fontStyle: "italic",
+          fontWeight: "bold",
+          color: "tomato",
+          textTransform: "capitalize",
+          // textDecorationLine: "underline",
+          textAlign: "center",
+          lineHeight: 30,
+        }}
+      >
+        I Love React Native! This is my first React Native App. Text hehe.
+      </Text>
+
+import React from "react";
+import { Text, StyleSheet, Platform } from "react-native";
+function AppText({ children }) {
+  return <Text>{children}</Text>;
+}
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 18,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+  },
+});
+export default AppText;

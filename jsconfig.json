@@ -1,0 +1,4 @@
+{
+    // Tells VS Code to read a ReactJs file and for Intellisense to work properly
+    "exclude": ["node_modules"]
+}
