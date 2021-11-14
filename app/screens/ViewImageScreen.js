@@ -15,13 +15,13 @@ const ViewImageScreen = () => {
     <SafeAreaView style={styles.viewImage}>
       <MaterialCommunityIcons
         name="close"
-        size={40}
+        size={30}
         color="white"
         style={styles.closeButton}
       />
       <MaterialCommunityIcons
         name="trash-can-outline"
-        size={40}
+        size={35}
         color="white"
         style={styles.deleteButton}
       />
@@ -41,18 +41,12 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     position: "absolute",
-    // backgroundColor: colors.primary,
-    // height: 50,
-    // width: 50,
     top: 40,
     left: 30,
   },
   deleteButton: {
     position: "absolute",
-    // backgroundColor: colors.secondary,
     marginLeft: 310,
-    // height: 50,
-    // width: 50,
     top: 40,
     right: 30,
   },

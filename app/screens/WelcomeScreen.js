@@ -8,25 +8,29 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import WelcomeButtons from "../components/LoginButton";
+import AppButton from "../components/AppButton";
 const HomeScreen = () => {
   const bckImg = require("../assets/background.jpg");
   const logo = require("../assets/logo-red.png");
-  console.log(bckImg);
+  a;
   return (
     <>
-      <ImageBackground source={bckImg} resizeMode="cover" style={styles.image}>
+      <ImageBackground
+        blurRadius={10}
+        source={bckImg}
+        resizeMode="cover"
+        style={styles.image}
+      >
         <View style={styles.logoView}>
           <Image style={styles.logo} source={logo} />
 
-          <Text style={{ marginTop: 10, fontWeight: "bold", fontSize: 20 }}>
-            Sell What You Don't Need
-          </Text>
+          <Text style={styles.tagline}>Sell What You Don't Need</Text>
         </View>
 
-        {/* <View style={styles.bars}> */}
-        <WelcomeButtons style={{ width: "80%" }} />
-        {/* </View> */}
+        <View style={styles.buttonsContainer}>
+          <AppButton title="Login" />
+          <AppButton title="Register" color="secondary" />
+        </View>
       </ImageBackground>
     </>
   );
@@ -51,23 +55,16 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
   },
-  bars: {
+  buttonsContainer: {
     flex: 1,
     justifyContent: "flex-end",
-  },
-  loginButton: {
+    padding: 20,
     width: "100%",
-    height: 70,
-    backgroundColor: colors.primary,
-    // position: "relative",
-    // bottom: 0,
   },
-  registerButton: {
-    width: "100%",
-    height: 70,
-    backgroundColor: colors.secondary,
-    // position: "relative",
-    // bottom: 0,
+  tagline: {
+    fontWeight: "bold",
+    fontSize: 25,
+    paddingVertical: 20,
   },
 });
 export default HomeScreen;
