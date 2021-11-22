@@ -29,10 +29,14 @@ function AppButton({ title, onPress, color = "primary" }) {
 }
 
 const styles = StyleSheet.create({
-  viewButton: {
-    flex: 1,
+  buttonLogin: {
+    // flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
+    borderRadius: 25,
+    padding: 15,
+    width: "100%",
+    marginVertical: 10,
   },
   buttonText: {
     color: colors.white,

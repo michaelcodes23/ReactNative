@@ -12,7 +12,7 @@ import AppButton from "../components/AppButton";
 const HomeScreen = () => {
   const bckImg = require("../assets/background.jpg");
   const logo = require("../assets/logo-red.png");
-  a;
+
   return (
     <>
       <ImageBackground
