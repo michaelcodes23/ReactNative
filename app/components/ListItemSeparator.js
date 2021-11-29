@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import colors from '../config/colors';
-function ListItemSeparator(props) {
+function ListItemSeparator({height}) {
     return (
+        // {[styles.buttonLogin, { backgroundColor: colors[color] }]}
         <View 
             style = {styles.separator}/>
     );
