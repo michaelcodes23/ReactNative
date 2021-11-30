@@ -25,13 +25,15 @@ import ListingsScreen from "./app/screens/ListingsScreen";
 import AppTextInput from "./app/components/AppTextInput";
 import {Switch} from 'react-native'
 import AppPicker from "./app/components/AppPicker";
+import LoginScreen from "./app/screens/LoginScreen";
+import RegisterScreen from "./app/screens/RegisterScreen";
 export default function App() {
   console.log('test successful, keep it going!')
-  const [isNew, setIsNew] = useState(false)
+
   return (
 
-    <Screen>
-      <AppPicker />
-    </Screen>
+      <RegisterScreen/>
+      // <LoginScreen/>
+
   );
 }

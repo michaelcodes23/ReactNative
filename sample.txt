@@ -92,3 +92,43 @@ export default AppText;
       icon='email'
       /> */}
       {/* <Switch value = {isNew} onValueChange = {newValue => setIsNew(newValue)}/> */}
+
+---App Picker 
+
+  const [isNew, setIsNew] = useState(false)
+  const categories = [
+    {
+      label: 'Furniture',
+      value: 1
+    },
+    {
+      label: 'Clothing',
+      value: 2
+    },
+    {
+      label: 'Cameras',
+      value: 3
+    }
+  ]
+
+
+ <AppPicker 
+        selectedItem = {category}
+        onSelectItem = {item => setCategory(item)}
+        placeholder = 'Category' icon = 'apps' items = {categories}/>
+      <AppTextInput placeholder = 'Email' icon = 'email'/>
+
+---Login Screen Form Input 
+
+<AppTextInput 
+                autoCapitalize='none'
+                autoCorrect={false}
+                icon='lock'
+                onBlur={()=> setFieldTouched('password')}
+                onChangeText={handleChange('password')}
+                placeholder='Password'
+                secureTextEntry={true}
+                textContentType='password'
+            />
+            {/* {touched.email && <ErrorMessage error={errors.password}/>} */}
+            <ErrorMessage error={errors.password} visible = {touched.password}/>
