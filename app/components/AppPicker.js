@@ -6,14 +6,18 @@ import AppText from './AppText'
 import { TouchableWithoutFeedback } from 'react-native';
 import Screen from './Screen';
 import Pickeritem from './PickerItem';
-function AppPicker({icon,items, onSelectItem, placeholder, selectedItem}) {
+function AppPicker({icon,items,numberofColumns =1, onSelectItem, placeholder, PickerItemComponent = Pickeritem, selectedItem, width = '100%'}) {
     const [modalVisible, setModalVisible] = useState(false)
     return (
         <>
         <TouchableWithoutFeedback onPress={()=> setModalVisible(true)}>
-        <View style = {styles.container}>
+        <View style = {[styles.container, {width}]}>
+        {/* backgroundColor={'white'} name = {'chevron-right'} iconColor={'black'} */}
             {icon && <MaterialCommunityIcons name = {icon} size = {20} color = {colors.medium} style = {styles.icon}/>}
-            <AppText style = {styles.text}>{selectedItem ? selectedItem.label : placeholder}</AppText>
+            {selectedItem ? <AppText style = {styles.text}>{selectedItem.label}</AppText> 
+            : <AppText style={styles.placeholder}>{placeholder}</AppText>
+            }
+            {/* <AppText style = {styles.text}>{selectedItem ? selectedItem.label : placeholder}</AppText> */}
             <MaterialCommunityIcons name = 'chevron-down' size = {20} color = {colors.medium} />
         </View>
         </TouchableWithoutFeedback>
@@ -23,7 +27,10 @@ function AppPicker({icon,items, onSelectItem, placeholder, selectedItem}) {
                 <FlatList 
                     data = {items}
                     keyExtractor = {item => item.value.toString()}
-                    renderItem = {({item}) => <Pickeritem
+                    numColumns={numberofColumns}
+                    renderItem = {({item}) => 
+                    <PickerItemComponent
+                    item = {item}
                     label = {item.label}
                     onPress = {() => {
                         setModalVisible(false)
@@ -42,7 +49,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.light,
         borderRadius: 25,
         flexDirection: 'row',
-        width: '100%',
         padding: 15,
         marginVertical: 10
     },
@@ -53,6 +59,10 @@ const styles = StyleSheet.create({
     },
     icon: {
         marginRight: 10
+    },
+    placeholder: {
+        color: colors.medium,
+        flex: 1,
     },
     text: {
         flex: 1

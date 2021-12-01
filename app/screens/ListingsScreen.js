@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
 import CardComp from '../components/CardComp';
 import Constants from 'expo-constants';
-import ListItemSeparator from '../components/ListItemSeparator';
+import ListItemSeparator from '../components/lists/ListItemSeparator';
 import Screen from '../components/Screen'
 import colors from '../config/colors';
 function ListingsScreen(props) {

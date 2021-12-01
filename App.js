@@ -19,7 +19,7 @@ import ListingDetailsScreen from "./app/screens/ListingDetailsScreen";
 import MessagesScreen from "./app/screens/MessagesScreen";
 import Screen from "./app/components/Screen";
 import Icon from "./app/components/Icon";
-import ListItem from "./app/components/ListItem";
+import ListItem from "./app/components/lists/ListItem";
 import MyAccountScreen from "./app/screens/MyAccountScreen";
 import ListingsScreen from "./app/screens/ListingsScreen";
 import AppTextInput from "./app/components/AppTextInput";
@@ -27,13 +27,12 @@ import {Switch} from 'react-native'
 import AppPicker from "./app/components/AppPicker";
 import LoginScreen from "./app/screens/LoginScreen";
 import RegisterScreen from "./app/screens/RegisterScreen";
+import ListingEditScreen from "./app/screens/ListingEditScreen";
 export default function App() {
-  console.log('test successful, keep it going!')
+  console.log('test successful, keep it going!!!')
 
   return (
+      <ListingEditScreen/>
 
-      <RegisterScreen/>
-      // <LoginScreen/>
-
-  );
+  )
 }
