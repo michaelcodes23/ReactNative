@@ -1,0 +1,61 @@
+    //use Permissions object, can pass multiple permissions object
+    //user has to accept all permissions for this to be true, else false
+    const result = await Permissions.askAsync(Permissions.CAMERA_ROLL, Permissions.LOCATION)
+
+    export default function App() {
+  console.log('test successful, keep it going!!!')
+  const [imageUri, setImageUri] = useState();
+  const requestPermission = async () => {
+
+    //request user for permission
+    const {granted} = await ImagePicker.requestCameraPermissionsAsync();
+    console.log(granted)
+    if(!granted) {
+      alert('Please enable permission to access the library')
+    };
+  }
+    
+  useEffect( () => {
+    requestPermission()
+    //when using async a promise is explicitly returned, although useEffect 
+    //can not return a promise
+    //we can only return a function to clean up
+    //empty array means code only gets executed once
+  }, []);
+  const selectImage = async () => {
+    //if there is an error, catch it 
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync();
+      //if user doesn't cancel but instead returns an image
+      if(!result.cancelled){
+        //setImageUri to image selected
+        setImageUri(result.uri)
+      }
+    } catch (error) {
+      console.log('Error reading an image', erorr)
+    }
+    //launch user Library
+
+  }
+  return (
+      <Screen>
+        <Button title= "Select Image" onPress={selectImage} />
+        <Image source = {{uri: imageUri}} style = {{width: 200, height: 200}}/>
+      </Screen>
+
+  )
+}
+
+  const [imageUris, setImageUris] = useState([]);
+  const handleAdd = (uri) => {
+    //spread operator allows us to push into the setImageUris
+    //by setting the imageUris to the array, and what it currently contains
+    //plus the new uri
+    setImageUris([...imageUris, uri])
+  }
+
+  const handleRemove = (uri) => {
+    //go through the array and filter out what is in the imageUri except
+    //the uri you are trying to remove
+    setImageUris(imageUris.filter(imageUri => imageUri !== uri))
+  }

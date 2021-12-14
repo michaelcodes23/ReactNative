@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   Text,
@@ -10,28 +10,28 @@ import {
   View,
   TextInput,
 } from "react-native";
-import AppText from "./app/components/AppText";
-import WelcomeScreen from "./app/screens/WelcomeScreen.js";
-import ViewImageScreen from "./app/screens/ViewImageScreen.js";
-import CardComp from "./app/components/CardComp";
-import AppButton from "./app/components/AppButton.js";
-import ListingDetailsScreen from "./app/screens/ListingDetailsScreen";
-import MessagesScreen from "./app/screens/MessagesScreen";
 import Screen from "./app/components/Screen";
-import Icon from "./app/components/Icon";
-import ListItem from "./app/components/lists/ListItem";
-import MyAccountScreen from "./app/screens/MyAccountScreen";
-import ListingsScreen from "./app/screens/ListingsScreen";
-import AppTextInput from "./app/components/AppTextInput";
-import {Switch} from 'react-native'
-import AppPicker from "./app/components/AppPicker";
-import LoginScreen from "./app/screens/LoginScreen";
-import RegisterScreen from "./app/screens/RegisterScreen";
+import ImageInputList from "./app/components/ImageInputList";
 import ListingEditScreen from "./app/screens/ListingEditScreen";
 export default function App() {
   console.log('test successful, keep it going!!!')
+  const [imageUris, setImageUris] = useState([]);
+  const handleAdd = (uri) => {
+    //spread operator allows us to push into the setImageUris
+    //by setting the imageUris to the array, and what it currently contains
+    //plus the new uri
+    setImageUris([...imageUris, uri])
+  }
 
+  const handleRemove = (uri) => {
+    //go through the array and filter out what is in the imageUri except
+    //the uri you are trying to remove
+    setImageUris(imageUris.filter(imageUri => imageUri !== uri))
+  }
   return (
+      // <Screen>
+      //   <ImageInputList imageUris={imageUris} onAddImage={handleAdd} onRemoveImage = {handleRemove}/>
+      // </Screen>
       <ListingEditScreen/>
 
   )
