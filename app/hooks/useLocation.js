@@ -6,6 +6,7 @@ function useLocation (){
   const [location, setLocation] = useState();
 
   const getLocation = async () => {
+    //wrote try / catch block in case location promise does not work properly
     try {
       const { granted } = await Location.requestForegroundPermissionsAsync();
       if (!granted) return;

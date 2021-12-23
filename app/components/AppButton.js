@@ -2,9 +2,6 @@ import React from "react";
 import {
   StyleSheet,
   Text,
-  View,
-  Button,
-  Pressable,
   TouchableOpacity,
 } from "react-native";
 import colors from "../config/colors";
@@ -31,9 +28,10 @@ function AppButton({ title, onPress, color = "primary" }) {
 const styles = StyleSheet.create({
   buttonLogin: {
     // flex: 1,
+    backgroundColor: colors.primary,
+    borderRadius: 25,
     justifyContent: "flex-end",
     alignItems: "center",
-    borderRadius: 25,
     padding: 15,
     width: "100%",
     marginVertical: 10,
@@ -43,7 +41,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
     textTransform: "uppercase",
-    // textAlign: "center",
   },
 });
 

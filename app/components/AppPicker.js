@@ -14,8 +14,8 @@ function AppPicker({icon,items,numberofColumns =1, onSelectItem, placeholder, Pi
         <View style = {[styles.container, {width}]}>
         {/* backgroundColor={'white'} name = {'chevron-right'} iconColor={'black'} */}
             {icon && <MaterialCommunityIcons name = {icon} size = {20} color = {colors.medium} style = {styles.icon}/>}
-            {selectedItem ? <AppText style = {styles.text}>{selectedItem.label}</AppText> 
-            : <AppText style={styles.placeholder}>{placeholder}</AppText>
+            {selectedItem ? (<AppText style = {styles.text}>{selectedItem.label}</AppText>) 
+            : (<AppText style={styles.placeholder}>{placeholder}</AppText>)
             }
             {/* <AppText style = {styles.text}>{selectedItem ? selectedItem.label : placeholder}</AppText> */}
             <MaterialCommunityIcons name = 'chevron-down' size = {20} color = {colors.medium} />
@@ -28,7 +28,7 @@ function AppPicker({icon,items,numberofColumns =1, onSelectItem, placeholder, Pi
                     data = {items}
                     keyExtractor = {item => item.value.toString()}
                     numColumns={numberofColumns}
-                    renderItem = {({item}) => 
+                    renderItem = {({item}) => (
                     <PickerItemComponent
                     item = {item}
                     label = {item.label}
@@ -37,7 +37,7 @@ function AppPicker({icon,items,numberofColumns =1, onSelectItem, placeholder, Pi
                         onSelectItem(item)
                     }}
                     />
-                }
+                    )}
                 />
             </Screen>
         </Modal>
