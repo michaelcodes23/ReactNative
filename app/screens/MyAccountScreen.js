@@ -5,8 +5,10 @@ import ListItem from '../components/lists/ListItem';
 import ListItemSeparator from '../components/lists/ListItemSeparator';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
+import routes from '../Navigation/routes';
 
-const MyAccountScreen = () => {
+
+const MyAccountScreen = ({navigation}) => {
     const accountIcons = [
         {
             id: 1,
@@ -14,7 +16,8 @@ const MyAccountScreen = () => {
             icon: {
                 name: 'format-list-bulleted',
                 backgroundColor: colors.primary,
-            }
+            },
+            
         },
         {
             id: 2,
@@ -23,6 +26,7 @@ const MyAccountScreen = () => {
                 name: 'email',
                 backgroundColor: colors.secondary,
             },
+            targetScreen: routes.MESSAGES
         },
     ]
     return (
@@ -45,6 +49,7 @@ const MyAccountScreen = () => {
                         IconComponent={
                             <Icon name = {item.icon.name} backgroundColor = {item.icon.backgroundColor}/>
                         }
+                        onPress = {()=> navigation.navigate(item.targetScreen)}
                     />}
                 />
             </View>
@@ -53,7 +58,7 @@ const MyAccountScreen = () => {
             IconComponent = {<Icon name = {'logout'} backgroundColor= {'#ffe66d'}/>}
             title = {'Log Out'}
             />
-      
+
         </Screen>
     );
 }

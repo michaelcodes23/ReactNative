@@ -5,18 +5,19 @@ import Constants from 'expo-constants';
 import ListItemSeparator from '../components/lists/ListItemSeparator';
 import Screen from '../components/Screen'
 import colors from '../config/colors';
-function ListingsScreen(props) {
+import routes from '../Navigation/routes';
+function ListingsScreen({navigation}) {
     const listings = [
         {
             id: 1,
             title: 'Red jacket for sale',
-            subTitile: 100,
+            price: 100,
             image: require('../assets/jacket.jpg')
         },
         {
             id: 2,
             title: 'Couch in great condition',
-            subTitile: 1000,
+            price: 1000,
             image: require('../assets/couch.jpg')
         }
     ]
@@ -29,8 +30,9 @@ function ListingsScreen(props) {
                 renderItem={({item}) =>
                     <CardComp
                         title={item.title}
-                        subTitle={"$" + item.subTitile}
+                        subTitle={"$" + item.price}
                         image = {item.image}
+                        onPress = {()=> navigation.navigate(routes.LISTING_DETAILS,item)}
                     />}
                 />
         </Screen>

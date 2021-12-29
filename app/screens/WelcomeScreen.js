@@ -9,7 +9,8 @@ import {
   View,
 } from "react-native";
 import AppButton from "../components/AppButton";
-const HomeScreen = () => {
+import routes from "../Navigation/routes";
+const HomeScreen = ({navigation}) => {
   const bckImg = require("../assets/background.jpg");
   const logo = require("../assets/logo-red.png");
 
@@ -28,8 +29,8 @@ const HomeScreen = () => {
         </View>
 
         <View style={styles.buttonsContainer}>
-          <AppButton title="Login" />
-          <AppButton title="Register" color="secondary" />
+          <AppButton title="Login" onPress = {()=> navigation.navigate('Login')}/>
+          <AppButton title="Register" color="secondary" onPress = {()=> navigation.navigate(routes.LOGIN)}/>
         </View>
       </ImageBackground>
     </>

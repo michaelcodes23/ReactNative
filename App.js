@@ -9,30 +9,22 @@ import {
   StyleSheet,
   View,
   TextInput,
+  Button
 } from "react-native";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import Screen from "./app/components/Screen";
 import ImageInputList from "./app/components/ImageInputList";
 import ListingEditScreen from "./app/screens/ListingEditScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import AuthNavigator from "./app/Navigation/AuthNavigator";
+import navigationTheme from './app/Navigation/navigationTheme'
+import AppNavigator from "./app/Navigation/AppNavigator";
 export default function App() {
-  console.log('test successful, keep it going!!!')
-  const [imageUris, setImageUris] = useState([]);
-  const handleAdd = (uri) => {
-    //spread operator allows us to push into the setImageUris
-    //by setting the imageUris to the array, and what it currently contains
-    //plus the new uri
-    setImageUris([...imageUris, uri])
-  }
-
-  const handleRemove = (uri) => {
-    //go through the array and filter out what is in the imageUri except
-    //the uri you are trying to remove
-    setImageUris(imageUris.filter(imageUri => imageUri !== uri))
-  }
+  
   return (
-      // <Screen>
-      //   <ImageInputList imageUris={imageUris} onAddImage={handleAdd} onRemoveImage = {handleRemove}/>
-      // </Screen>
-      <ListingEditScreen/>
-
+    <NavigationContainer theme = {navigationTheme}>
+      <AppNavigator/>
+    </NavigationContainer>
   )
 }

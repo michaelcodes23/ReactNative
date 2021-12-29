@@ -59,3 +59,85 @@
     //the uri you are trying to remove
     setImageUris(imageUris.filter(imageUri => imageUri !== uri))
   }
+
+-----------Navigation
+const Link = () => {
+    const navigation = useNavigation();
+    return (<Button
+      title = 'Click'
+      onPress={()=> navigation.navigate("TweetDetails")}
+    />)
+  }
+  const Tweets = ({navigation}) => (
+    <Screen>
+      <Text>Tweets</Text>
+      <Button
+        title = 'View Tweet'
+        onPress={()=> navigation.navigate("TweetDetails", {id: 1})}
+      />
+  
+    </Screen>
+  )
+  const TweetDetails = ({route}) => (
+    //useRoute hook to gather route
+    <Screen>
+      <Text>Tweet Details {route.params.id}</Text>
+    </Screen>
+  )
+  const Stack =  createNativeStackNavigator();
+  const StackNavigator = () => (
+    <Stack.Navigator 
+      initialRouteName="Tweets"
+      screenOptions={{
+        headerStyle: {backgroundColor: 'dodgerblue'},
+        headerTintColor: 'white',
+        // headerShown: false
+      }}
+      >
+      <Stack.Screen name= "Tweets" component={Tweets}
+        // options = {{
+        //   headerStyle: {backgroundColor: 'tomato'},
+        //   headerTintColor: 'white'
+          
+        // }}
+      />
+      <Stack.Screen name= "TweetDetails" component={TweetDetails} />
+      
+      
+    </Stack.Navigator>
+  )
+  const Tab = createBottomTabNavigator();
+  const Account = () => (
+    <Screen>
+      <Text>Account</Text>
+    </Screen>
+  )
+
+  const TabNavigator = () => (
+    <Tab.Navigator
+      
+      // tabBarOptions = {{
+      //   activeBackgroundColor: 'dodgerblue',
+      //   activeTintColor: 'white',
+      //   inactiveTintColor: '#eee',
+      //   inactiveTintColor: 'black'
+      // }}    
+    >
+      <Tab.Screen 
+        screenOptions = {{
+          tabBarShowLabel: false
+        }}
+        name = 'Feed' 
+        component = {StackNavigator}
+        // options = {{
+        // tabBarIcon: ({size , color}) => <MaterialCommunityIcons name = 'home' size = {size} color = {color} />
+        // }}
+        />
+      <Tab.Screen name = 'Account' component = {Account}/>
+    </Tab.Navigator>
+  )
+  return (
+    <NavigationContainer>
+      <TabNavigator/>
+    </NavigationContainer>
+  )
