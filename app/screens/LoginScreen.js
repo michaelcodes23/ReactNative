@@ -1,32 +1,46 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import {StyleSheet, Image} from 'react-native' 
-
+import authApi from '../api/auth'
 import * as Yup from 'yup';
+import jwtDecode from 'jwt-decode';
+
 import Screen from '../components/Screen';
-import {  AppForm, AppFormField, SubmitButton, } from '../components/forms';
+import { ErrorMessage, AppForm, AppFormField, SubmitButton, } from '../components/forms';
+import AuthContext from '../auth/context';
+
 //useYup to validate
 const validationSchema = Yup.object().shape({
     email: Yup.string().required().email().label('Email'),
     password: Yup.string().required().min(4).label('Password')
 })
 function LoginScreen(props) {
+    //use the object below so that you are able to use object authContext
+    //in App.js
+    const authContext = useContext(AuthContext)
+    const [loginFailed, setLoginFailed] = useState(false)
+    const handleSubmit = async ({email, password}) => {
+        const result = await authApi.login(email, password)
+        if(!result.ok) return setLoginFailed(true);
 
+        setLoginFailed(false);
+
+        const user = jwtDecode(result.data)
+        console.log(user)
+        authContext.setUser(user)
+    }
     return (
         <Screen style = {styles.container}>
             <Image style = {styles.logo} source={require('../assets/logo-red.png')}/>
-            {/* <Formik
-            initialValues={{email: '', password: ''}}
-            onSubmit={values=> console.log(values)}
-            validationSchema={validationSchema}
-            > */}
+
              <AppForm
-            initialValues={{email: '', password: ''}}
-            onSubmit={values=> console.log(values)}
-            validationSchema={validationSchema}
+                initialValues={{email: '', password: ''}}
+                onSubmit={handleSubmit}
+                validationSchema={validationSchema}
             >
                 {/* { ({handleChange, handleSubmit, errors, setFieldTouched, touched}) => ( */}
                 {/* By refactoring our code we don't need to call the parameters above */}
+                <ErrorMessage error = 'Invalid email and/or password.' visible = {loginFailed}/>
                 <AppFormField
                 autoCapitalize = 'none'
                 autoCorrect={false}

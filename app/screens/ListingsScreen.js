@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { FlatList, View, StyleSheet, ActivityIndicator } from 'react-native';
+import { FlatList, View, StyleSheet } from 'react-native';
 import CardComp from '../components/CardComp';
 import Constants from 'expo-constants';
 import listingsAPI from '../api/listings';
@@ -7,36 +7,27 @@ import ListItemSeparator from '../components/lists/ListItemSeparator';
 import Screen from '../components/Screen'
 import colors from '../config/colors';
 import routes from '../Navigation/routes';
+import ActivityIndicator from "../components/ActivityIndicator";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
+import useAPI from "../hooks/useAPI";
 function ListingsScreen({navigation}) {
-    const [listings, setListings] = useState([])
-    const [error, setError] = useState(false)
-    const [loading, setLoading] = useState(false);
+    const getListingsAPI = useAPI(listingsAPI.getListings);
+
     useEffect(() => {
-        loadListings();
+        getListingsAPI.request();
     }, []);
     
-    const loadListings = async () => {
-        //story for controlling animation
-        setLoading(true)
-        const response = await listingsAPI.getListings();
-        setLoading(false)
-        //story for controlling an error
-        if(!response.ok)  return setError(true)
-       
-        setError(false)
-        setListings(response.data);
-    }
+    
     return (
         <Screen style = {styles.container}>
-            {error && <>
+            {getListingsAPI.error && <>
                 <AppText>Could not retrieve the listings</AppText>
-                <AppButton title='Retry' onPress={loadListings}/>
+                <AppButton title='Retry' onPress={getListingsAPI.request}/>
             </>}
-            <ActivityIndicator animating = {true} size = 'large'/>
+            <ActivityIndicator visible = {getListingsAPI.loading} />
                 <FlatList
-                data = {listings}
+                data = {getListingsAPI.data}
                 keyExtractor = {listings => listings.id.toString()}
                 ItemSeparatorComponent={ListItemSeparator}
                 renderItem={({item}) =>
@@ -45,6 +36,7 @@ function ListingsScreen({navigation}) {
                         subTitle={"$" + item.price}
                         imageUrl = {item.images[0].url}
                         onPress = {()=> navigation.navigate(routes.LISTING_DETAILS,item)}
+                        thumbnailUrl={item.images[0].thumbnailUrl}
                     />}
                 />
         </Screen>

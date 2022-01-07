@@ -141,3 +141,54 @@ const Link = () => {
       <TabNavigator/>
     </NavigationContainer>
   )
+
+  ------API Calls
+
+  const [listings, setListings] = useState([])
+    const [error, setError] = useState(false)
+    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        loadListings();
+    }, []);
+    
+    const loadListings = async () => {
+        //story for controlling animation
+        setLoading(true)
+        const response = await listingsAPI.getListings();
+        setLoading(false)
+        //story for controlling an error
+        if(!response.ok)  return setError(true)
+       
+        setError(false)
+        setListings(response.data);
+    }
+
+    ---Checking Connection
+  import NetInfo, {useNetInfo} from '@react-native-community/netinfo'
+      // NetInfo.fetch().then(netInfo => console.log(netInfo))
+  //Class Components
+  //componentDidMount
+  const unsubscribe = NetInfo.addEventListener(netInfo => console.log(netInfo))
+  //componentWillUnmount
+  unsubscribe()
+  //Function Components
+  const netInfo = useNetInfo()
+ 
+  return netInfo.isInternetReachable? <View></View> : console.log('not online')
+  //or disable a feature if not connected
+  return <Button disabled = {!netInfo.isInternetReachable}/>
+
+
+  ----Async 
+
+const demo = async ()=> {
+    try {
+      await AsyncStorage.setItem('person', JSON.stringify({id: 1}))
+      const value = await AsyncStorage.getItem('person')
+      const person = JSON.parse(value)
+      console.log(person)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  demo()

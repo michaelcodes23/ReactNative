@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 import CategoryPickerItem from "../components/CategoryPickerItem";
@@ -9,9 +9,12 @@ import {
   AppFormPicker as Picker,
   SubmitButton,
 } from "../components/forms";
+
+import listingsAPI from '../api/listings';
 import FormImagePicker from "../components/forms/FormImagePicker";
 import Screen from "../components/Screen";
 import useLocation from "../hooks/useLocation";
+import UploadScreen from "./UploadScreen";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -35,9 +38,28 @@ const categories = [
 
 function ListingEditScreen() {
   const location =  useLocation();
+  const [uploadVisible, setUploadVisible] = useState(false)
+  const [progress, setProgress]= useState(0)
   console.log(location)
+  const handleSubmit = async (listing, {resetForm}) => {
+    setProgress(0);
+    setUploadVisible(true)
+    // listing.location = location;
+    const result = await listingsAPI.addListing({...listing, location},
+      //callback function for Api layer to call as upload is progressing
+      (progress) => setProgress(progress)
+    );
+  
+    if(!result.ok) {
+      setUploadVisible(false)
+      return alert('Could not save the listing.')
+    };
+    //empty form once submitted
+    resetForm();
+  }
   return (
     <Screen style={styles.container}>
+      <UploadScreen onDone= {()=>setUploadVisible(false)} progress={progress} visible = {uploadVisible}/>
       <Form
         initialValues={{
           title: "",
@@ -46,7 +68,8 @@ function ListingEditScreen() {
           category: null,
           images: []
         }}
-        onSubmit={(values) => console.log(location)}
+        //use function reference for submit button to post
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <FormImagePicker name='images'/>

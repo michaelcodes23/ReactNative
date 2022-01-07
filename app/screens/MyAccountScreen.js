@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
+import AuthContext from '../auth/context';
 import Icon from '../components/Icon';
 import ListItem from '../components/lists/ListItem';
 import ListItemSeparator from '../components/lists/ListItemSeparator';
@@ -7,35 +8,36 @@ import Screen from '../components/Screen';
 import colors from '../config/colors';
 import routes from '../Navigation/routes';
 
+const accountIcons = [
+    {
+        id: 1,
+        title: 'My Listings',
+        icon: {
+            name: 'format-list-bulleted',
+            backgroundColor: colors.primary,
+        },
+        
+    },
+    {
+        id: 2,
+        title: 'My Messages',
+        icon: {
+            name: 'email',
+            backgroundColor: colors.secondary,
+        },
+        targetScreen: routes.MESSAGES
+    },
+]
 
 const MyAccountScreen = ({navigation}) => {
-    const accountIcons = [
-        {
-            id: 1,
-            title: 'My Listings',
-            icon: {
-                name: 'format-list-bulleted',
-                backgroundColor: colors.primary,
-            },
-            
-        },
-        {
-            id: 2,
-            title: 'My Messages',
-            icon: {
-                name: 'email',
-                backgroundColor: colors.secondary,
-            },
-            targetScreen: routes.MESSAGES
-        },
-    ]
+    const {user} = useContext(AuthContext)
     return (
         <Screen style = {styles.screen}>
             <View style = {styles.container}>
                 <ListItem
                 image = {require("../assets/michael.jpg")}
-                title = {'Michael Codes'}
-                subTitle= {'cuencamich@gmail.com'}
+                title = {user.name}
+                subTitle= {user.email}
                 />
             </View>
             <View style = {styles.container}>
