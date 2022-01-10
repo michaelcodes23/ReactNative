@@ -20,12 +20,14 @@ function ListingsScreen({navigation}) {
     
     
     return (
+        <>
+        <ActivityIndicator visible = {getListingsAPI.loading} />
         <Screen style = {styles.container}>
             {getListingsAPI.error && <>
                 <AppText>Could not retrieve the listings</AppText>
                 <AppButton title='Retry' onPress={getListingsAPI.request}/>
             </>}
-            <ActivityIndicator visible = {getListingsAPI.loading} />
+            
                 <FlatList
                 data = {getListingsAPI.data}
                 keyExtractor = {listings => listings.id.toString()}
@@ -40,6 +42,7 @@ function ListingsScreen({navigation}) {
                     />}
                 />
         </Screen>
+        </>
     );
 }
 const styles = StyleSheet.create({

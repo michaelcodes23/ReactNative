@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useState } from 'react';
 import {StyleSheet, Image} from 'react-native' 
 import authApi from '../api/auth'
 import * as Yup from 'yup';
-import jwtDecode from 'jwt-decode';
+
 
 import Screen from '../components/Screen';
 import { ErrorMessage, AppForm, AppFormField, SubmitButton, } from '../components/forms';
-import AuthContext from '../auth/context';
+import useAuth from '../auth/useAuth';
 
 //useYup to validate
 const validationSchema = Yup.object().shape({
@@ -17,17 +17,15 @@ const validationSchema = Yup.object().shape({
 function LoginScreen(props) {
     //use the object below so that you are able to use object authContext
     //in App.js
-    const authContext = useContext(AuthContext)
+    //call the login function in the useAuth asset
+    const {logIn} = useAuth()
     const [loginFailed, setLoginFailed] = useState(false)
     const handleSubmit = async ({email, password}) => {
         const result = await authApi.login(email, password)
         if(!result.ok) return setLoginFailed(true);
-
         setLoginFailed(false);
-
-        const user = jwtDecode(result.data)
-        console.log(user)
-        authContext.setUser(user)
+        //send data to login
+        logIn(result.data);
     }
     return (
         <Screen style = {styles.container}>

@@ -29,8 +29,8 @@ const HomeScreen = ({navigation}) => {
         </View>
 
         <View style={styles.buttonsContainer}>
-          <AppButton title="Login" onPress = {()=> navigation.navigate('Login')}/>
-          <AppButton title="Register" color="secondary" onPress = {()=> navigation.navigate(routes.LOGIN)}/>
+          <AppButton title="Login" onPress = {()=> navigation.navigate(routes.LOGIN)}/>
+          <AppButton title="Register" color="secondary" onPress = {()=> navigation.navigate(routes.REGISTER)}/>
         </View>
       </ImageBackground>
     </>

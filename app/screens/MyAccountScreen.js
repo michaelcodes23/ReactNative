@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import AuthContext from '../auth/context';
+import useAuthorization from '../auth/useAuth';
 import Icon from '../components/Icon';
 import ListItem from '../components/lists/ListItem';
 import ListItemSeparator from '../components/lists/ListItemSeparator';
@@ -30,7 +30,8 @@ const accountIcons = [
 ]
 
 const MyAccountScreen = ({navigation}) => {
-    const {user} = useContext(AuthContext)
+    const {user, logOut} = useAuthorization();
+    
     return (
         <Screen style = {styles.screen}>
             <View style = {styles.container}>
@@ -58,7 +59,7 @@ const MyAccountScreen = ({navigation}) => {
 
             <ListItem
             IconComponent = {<Icon name = {'logout'} backgroundColor= {'#ffe66d'}/>}
-            title = {'Log Out'}
+            title = {'Log Out'} onPress={()=> logOut()}
             />
 
         </Screen>

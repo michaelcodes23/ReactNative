@@ -11,10 +11,17 @@ const useAPI = (apiFunc) => {
         const response = await apiFunc(...args);
         setLoading(false)
         //story for controlling an error
-        if(!response.ok)  return setError(true)
-       
-        setError(false)
+        setError(!response.ok)
         setData(response.data);
+        return response
+        //we combined the setError response below into 3 lines above
+        // if(!response.ok)  {
+        //     // setError(true)
+        //     return response
+        // }
+        // // setError(false)
+        // // setData(response.data);
+        // return response;
     }
     return {
         data, error, loading, request

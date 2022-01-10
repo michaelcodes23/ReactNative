@@ -192,3 +192,18 @@ const demo = async ()=> {
     }
   }
   demo()
+
+  ---Notifications  - Code below seems to have been deprecated
+
+    const showNotification = () => {
+    Notifications.getPresentedNotificationsAsync({
+      title: 'Congratulations',
+      body: 'Your order was successfully placed!',
+    });
+    console.log('button pressed')
+  }
+    return (
+      <Screen>
+        <AppButton title ='tap me' onPress={showNotification}/>
+      </Screen>
+    )

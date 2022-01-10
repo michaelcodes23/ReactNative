@@ -3,7 +3,6 @@ import apiClient from "./client";
 const endpoint = '/listings'
 //create a separate api get call
 const getListings = () => apiClient.get(endpoint);
-
 //post a listing
 //you can add a content type  for a HTTP request
 // when we send json objects the content type is aplication / json

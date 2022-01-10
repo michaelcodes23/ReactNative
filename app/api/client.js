@@ -1,9 +1,18 @@
 import {create} from 'apisauce';
 import cache from '../utility/cache';
-
+import authStorage from '../auth/storage';
 const apiClient = create ({
-    baseURL: "http://192.168.0.12:9000/api",
+    baseURL: "http://192.168.131.222:9000/api",
 })
+//create call for auth token
+apiClient.addAsyncRequestTransform(async (request) => {
+    const authToken = await authStorage.getToken()
+
+    if(!authToken) return;
+        //sends request to backend to make the authToken equal to the verified JWT key
+        request.headers['x-auth-token'] = authToken;
+ 
+});
 //Place caching logic here
 const get = apiClient.get;
 apiClient.get = async (url,params, axiosConfig) => {
