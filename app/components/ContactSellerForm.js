@@ -4,7 +4,7 @@ import * as Notifications from 'expo-notifications'
 import * as Yup from 'yup';
 
 import {AppForm, AppFormField, SubmitButton} from './forms'
-import messages from '../api/messages';
+import messagesApi from '../api/messages';
 
 function ContactSellerForm({listing}){
     const handleSubmit = async({message}, {resetForm}) => {
@@ -14,13 +14,14 @@ function ContactSellerForm({listing}){
         Keyboard.dismiss();
         //make the call to the backend to post a message
         
-        const result = await messages.send(message, listing.id);
-
+        const result = await messagesApi.send(message, listing.id);
+        
         if(!result.ok){
             console.log('Error', result);
             return Alert.alert('Error', 'Could not send the message to the seller.');
         }
         resetForm();
+
         Notifications.scheduleNotificationAsync({
             content: {
                 title: 'Awesome',
