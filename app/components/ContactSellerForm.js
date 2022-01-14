@@ -25,7 +25,7 @@ function ContactSellerForm({listing}){
         Notifications.scheduleNotificationAsync({
             content: {
                 title: 'Awesome',
-                body: "Your message was sent to the seller",
+                body: "Your message was sent to the seller: '" + message + "'",
             },
             trigger: {
                 seconds: 5,
